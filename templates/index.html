@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title> WireInspect Packet Sniffer </title>
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  <style>
+   
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a0000 0%, #4d0000 50%, #800000 100%);
+      color: #ff4d4d;
+      margin: 20px;
+      user-select: none;
+    }
+
+    h1 {
+      color: gold;
+      text-shadow: 0 0 10px #f0a902, 0 0 20px #f0a902, 0 0 30px #f0a902;
+    }
+
+    button {
+      background: #330000;
+      border: 2px solid #ff3300;
+      border-radius: 6px;
+      color: #f0a902;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 20px;
+      margin: 6px 8px 12px 0;
+      cursor: pointer;
+      box-shadow: 0 0 6px #ff3300;
+      transition: all 0.3s ease;
+    }
+    button:hover:not(:disabled) {
+      background: #ff3300;
+      color: #330000;
+      box-shadow: 0 0 12px #ff0000;
+      transform: scale(1.05);
+    }
+    button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    #status {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px #ff0000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #2b0000;
+      box-shadow: 0 0 12px #ff0000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #660000;
+      color: #ffb3b3;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    th {
+      background: #4d0000;
+      font-size: 1rem;
+      text-shadow: 0 0 4px #ff3300;
+    }
+
+    tr:hover {
+      background: #660000;
+      color: #fff0f0;
+      cursor: default;
+    }
+
+
+    tbody {
+      display: block;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    thead, tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+  </style>
+</head>
+<body>
+  <h1> WireInspect Packet Sniffer </h1>
+
+  <div>
+    <button id="startBtn">Start Sniffing</button>
+    <button id="stopBtn" disabled>Stop Sniffing</button>
+    <button id="clearBtn">Clear Packets</button>
+    <button id="exportBtn">Export PCAP</button>
+  </div>
+
+  <div id="status">Status: Not started</div>
+
+  <table id="packetTable">
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>SOURCE IP</th>
+        <th>DESTINATION IP</th>
+        <th>Protocol</th>
+        <th>Payload</th>
+      </tr>
+    </thead>
+    <tbody id="packetBody"></tbody>
+  </table>
+</body>
+</html>
